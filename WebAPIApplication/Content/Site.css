@@ -1,0 +1,27 @@
+﻿body {
+    font-family: "Times New Roman", Georgia, Serif;
+}
+ul{
+    list-style: none;
+}
+p {
+    max-height: 55px;
+    overflow: auto;
+}
+th, tr{
+    max-width: 100px;
+    padding: 2px;
+    text-align: center;
+}
+th{
+    border-top: 1px solid;
+    padding-bottom: 10px;
+}
+table{
+  margin: 0 auto;
+  width: 100%;
+  clear: both;
+  border-collapse: collapse;
+  table-layout: fixed; 
+  word-wrap:break-word;
+}

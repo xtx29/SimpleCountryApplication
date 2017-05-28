@@ -1,0 +1,201 @@
+﻿@{
+    ViewBag.Title = "List of Countries";
+    Layout = null;
+}
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css" />
+<link href="~/Content/Site.css" rel="stylesheet" />
+<body style="padding:0;">
+    <div class="datatable" style="width:99%; height:97%; padding-top: 1%; padding-left:1%;">
+        <table id="ctable" class="display compact" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Top Level Domain</th>
+                    <th>Alpha2Code</th>
+                    <th>Alpha3Code</th>
+                    <th>Calling Codes</th>
+                    <th>Capital</th>
+                    <th>Alt Spelling</th>
+                    <th>Region</th>
+                    <th>Subregion</th>
+                    <th>Population</th>
+                    <th>Latitude, Longitude</th>
+                    <th>Demonym</th>
+                    <th>Area</th>
+                    <th>Gini</th>
+                    <th>Time Zone</th>
+                    <th>Borders</th>
+                    <th>Native Name</th>
+                    <th>Numeric Code</th>
+                    <th>Currencies</th>
+                    <th>Languages</th>
+                    <th>Translations</th>
+                    <th>Flag</th>
+                    <th>Regional Bloc</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in ViewBag.result)
+                {
+
+                    <tr>
+                        <td>@item.name</td>
+                        <td>
+                            <p>
+                                @foreach (string tld in @item.topLevelDomain)
+                {
+                                    <span>@tld </span>
+                                }
+                            </p>
+                        </td>
+                        <td><p><span>@item.alpha2Code</span></p></td>
+                        <td>@item.alpha3Code</td>
+                        <td>
+                            <p>
+                                @foreach (string cc in @item.callingCodes)
+                {
+                                    <span>@cc </span>
+                                }
+                            </p>
+                        </td>
+                        <td>@item.capital</td>
+                        <td>
+                            <p>
+                                @foreach (string altS in @item.altSpellings)
+                {
+                                    <span>@altS </span>
+                                }
+                            </p>
+                        </td>
+                        <td>@item.region</td>
+                        <td>@item.subregion</td>
+                        <td>@item.population</td>
+                        <td>
+                            <p>
+                                @foreach (double l in @item.latlng)
+                {
+                                    <span>@l </span>
+                                    <br />
+                                }
+                            </p>
+                        </td>
+                        <td>@item.demonym</td>
+                        <td>@item.area</td>
+                        <td>@item.gini</td>
+                        <td>
+                            <p>
+                                @foreach (string tz in @item.timezones)
+                {
+                                    <span>@tz </span>
+                                }
+                            </p>
+                        </td>
+                        <td>
+                            <p>
+                                @foreach (string b in @item.borders)
+                {
+                                    <span>@b</span>
+                                }
+                            </p>
+
+                        </td>
+                        <td>@item.nativeName</td>
+                        <td>@item.numericCode</td>
+                        <td style="text-align: left;">
+                            <p>
+                                @foreach (var c in @item.currencies)
+                                {
+                                    <span>Code: @c.code</span><br />
+                                    <span>Name: @c.name</span><br />
+                                    <span>Symbol: @c.symbol</span><br />
+                                }
+                            </p>
+                        </td>
+                        <td style="text-align: left">
+                            <p>
+                                @foreach (var l in @item.languages)
+                                {
+                                    <span>iso639_1: @l.iso639_1</span><br />
+                                    <span>iso639_2: @l.iso639_2</span><br />
+                                    <span>Name: @l.name</span><br />
+                                    <span>Native Name: @l.nativeName</span><br />
+                                }
+                            </p>
+                        </td>
+                        <td style="text-align: left">
+                            <p>
+                                <span>De: @item.translations.de</span><br />
+                                <span>Es: @item.translations.es</span><br />
+                                <span>Fr: @item.translations.fr</span><br />
+                                <span>Ja: @item.translations.ja</span><br />
+                                <span>It: @item.translations.it</span><br />
+                                <span>Br: @item.translations.br</span><br />
+                                <span>Pt: @item.translations.pt</span><br />
+                            </p>
+                        </td>
+                        <td><img src="@item.flag" width="80" height="50" style="border:0.5px solid;" /></td>
+                        <td style="text-align: left">
+                            <p>
+
+                                @foreach (var rb in @item.regionalBlocs)
+                                {
+                                    <span>Acronym: @rb.acronym</span><br />
+                                    <span>Name: @rb.name</span><br />
+                                    foreach (string oa in @rb.otherAcronyms)
+                                    {
+                                        <span>Other Acronym: @oa</span><br />
+                                    }
+                                    foreach (string on in @rb.otherNames)
+                                    {
+                                        <span>Other Name: @on </span><br />
+                                    }
+                                }
+                            </p>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</body>
+<script src="~/Scripts/bootstrap.js"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script type="text/javascript" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#ctable').DataTable({
+            "scrollY": 650,
+            "scrollX": true,
+            "bSort": true,
+            "bFilter": true,
+            "paginate": true,
+            "info": true,
+            "columnDefs": [
+      { "width": "200px", "targets": 0 },
+      { "width": "200px", "targets": 1 },
+      { "width": "100px", "targets": 2 },
+      { "width": "70px", "targets": 3 },
+      { "width": "70px", "targets": 4 },
+      { "width": "300px", "targets": 5 },
+      { "width": "400px", "targets": 6 },
+      { "width": "200px", "targets": 7 },
+      { "width": "200px", "targets": 8 },
+      { "width": "100px", "targets": 9 },
+      { "width": "70px", "targets": 10 },
+      { "width": "70px", "targets": 11 },
+      { "width": "200px", "targets": 12 },
+      { "width": "200px", "targets": 13 },
+      { "width": "100px", "targets": 14 },
+      { "width": "70px", "targets": 15 },
+      { "width": "70px", "targets": 16 },
+      { "width": "70px", "targets": 17 },
+      { "width": "900px", "targets": 18 },
+      { "width": "900px", "targets": 19 },
+      { "width": "900px", "targets": 20 },
+      { "width": "200px", "targets": 21 },
+      { "width": "900px", "targets": 22 }
+        ]
+        });
+    });
+</script>
